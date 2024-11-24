@@ -1,38 +1,121 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
 
-    <title>Cocos Creator | EggRoyale</title>
+<head>
+  <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="full-screen" content="yes"/>
-    <meta name="screen-orientation" content="portrait"/>
-    <meta name="x5-fullscreen" content="true"/>
-    <meta name="360-fullscreen" content="true"/>
-    
-    <meta name="renderer" content="webkit"/>
-    <meta name="force-rendering" content="webkit"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    
-    <link rel="stylesheet" type="text/css" href="./style.ad77d.css"/>
-    <link rel="icon" href="favicon.ico"/>
-  </head>
-  <body>
-    <h1 class="header">EggRoyale</h1>
+  <title>
+    EggRoyale
+  </title>
 
-    <div id="GameDiv" cc_exact_fit_screen="false" style="width: 750px; height: 1334px;">
-      <div id="Cocos3dGameContainer">
-        <canvas id="GameCanvas" width="750" height="1334" tabindex="99"></canvas>
-      </div>
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+    content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true" />
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="360-fullscreen" content="true" />
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <link rel="stylesheet" type="text/css" href="style.f76d1.css" />
+
+  <style>
+    body {
+      background-image: url('/bg.png');
+      background-size: auto;
+      /* Ensure the image maintains its aspect ratio and is fully visible */
+      background-position: center;
+      /* Center the image horizontally and vertically */
+      background-repeat: no-repeat;
+      /* Prevent the image from repeating */
+      background-attachment: fixed;
+      /* Optional: Keep the background fixed when scrolling */
+      margin: 0;
+      /* Remove default margin */
+      padding: 0;
+      /* Remove default padding */
+    }
+
+    #ton-connect {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 150px;
+      height: 40px;
+      background-color: transparent;
+      border: 1px solid rgba(204, 204, 204, 0);
+      z-index: 1000;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="GameDiv" cc_exact_fit_screen="true">
+    <div id="Cocos3dGameContainer">
+      <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
     </div>
-    <p class="footer">
-      Created with <a href="https://www.cocos.com/products" title="Cocos Creator">Cocos Creator</a>
-    </p>
-    <!-- Polyfills bundle. -->
+  </div>
+  <!-- Include Eruda from CDN (Recommended) -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>
+    // Initialize Eruda
+    eruda.init();
+  </script> -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    // Init TWA
+    Telegram.WebApp.ready();
+    window.Telegram = Telegram;
+    window.Telegram.WebApp.enableClosingConfirmation();
 
-<script src="src/polyfills.bundle.5adbf.js" charset="utf-8"> </script>    
+    window.BaseUrl = "http://8.138.99.56:8080/api/v1";
+    window.IsDevelopment = false;
+    window.IsShowGM = false;
+    window.preventDebugging = function () {
+      debugger;
+      console.clear();
+    }
+  </script>
+  <!-- TON Connect for JS -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <div id="ton-connect"></div>
+  <script>
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://game.eggroyale.io/tonconnect-manifest.json',
+      buttonRootId: 'ton-connect'
+    });
+
+    tonConnectUI.uiOptions = {
+      twaReturnUrl: 'https://t.me/eggroyale_bot/app'
+    };
+
+    window["tonConnectUI"] = tonConnectUI;
+  </script>
+  
+
+<!-- Polyfills bundle. -->
+
+<script src="src/polyfills.bundle.5adbf.js" charset="utf-8"> </script>
 
 
 <!-- SystemJS support. -->
@@ -42,7 +125,9 @@
 <script src="src/import-map.641a7.json" type="systemjs-importmap" charset="utf-8"> </script>
 
 <script>
-    System.import('./index.53201.js').catch(function(err) { console.error(err); })
+    System.import('./index.29088.js').catch(function(err) { console.error(err); })
 </script>
-  </body>
+
+</body>
+
 </html>
