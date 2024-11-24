@@ -1,0 +1,1 @@
+{"importBase":"import","nativeBase":"native","name":"font","deps":[],"uuids":["51r2lYvfNO5b3rSovv+r/y"],"paths":{"0":["fzch-Regular",0,1]},"scenes":{},"packs":{},"versions":{"import":[0,"8d503"],"native":[0,"0b30d"]},"redirect":[],"debug":false,"extensionMap":{},"hasPreloadScript":true,"dependencyRelationships":{},"types":["cc.TTFFont"]}
